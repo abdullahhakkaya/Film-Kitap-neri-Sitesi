@@ -1,0 +1,25 @@
+@model Proje.Models.User
+@{
+    ViewData["Title"] = "Giriş Yap Sayfası";
+}
+
+@if(ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+<section class="log-in-section">
+    <div class="login">  	
+            <img class="default-user-img" src="@Url.Content("~/images/user.png")" alt="">
+            <h3 class="login-header">Giriş yap</h3>
+        <form asp-action="Login" method="post">
+            <input class="input-box" type="email" asp-for="Email" placeholder="E-mail" required="">
+            <input class="input-box" type="password" asp-for="Password" placeholder="Şifre" required="">
+            <button class="login-btn">Giriş yap</button>
+        </form>
+        <p class="signup-link">Hesabın yok mu? <a asp-action="Signup" asp-controller="User">Kayıt Ol</a></p>
+	</div>
+</section>
+

@@ -1,0 +1,66 @@
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]in/
+[Oo]bj/
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## NuGet Packages
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+*.nuspec
+
+# The packages folder can be ignored because of package restore
+**/packages/
+
+## Microsoft Azure Web App publish settings
+*.PublishSettings
+
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Rider
+.idea/
+
+## IIS Express
+/.vs/
+*.iisexpress/
+
+## Log files
+*.log
+
+## Backup & transient files
+*.bak
+*.tmp
+*.temp
+
+## Others
+_ReSharper*/
+*.resharper
+*.DotSettings.user
+
+## Entity Framework
+**/Migrations/
+
+## JetBrains Rider
+.idea/
+*.sln.iml

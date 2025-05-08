@@ -1,0 +1,19 @@
+@model Proje.Models.Movie
+
+<div class="book-detail-container">
+    <div class="book-detail-image-container">
+        <img src="@Model.ImagePath" class="book-detail-img" alt="Kitap Resmi">
+    </div>
+    <div class="book-detail-content">
+        @if (Context.Session.GetString("UserRole") == "Admin")
+        {
+            <form asp-action="Delete" asp-controller="Movie" method="post"
+                onsubmit="return confirm('Bu filmi silmek istediğinize emin misiniz?');">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button type="submit" class="delete-btn">Kaldır</button>
+            </form>
+        }
+        <h2 class="book-detail-header">@Model.Title</h2>
+        <p class="book-detail-text">@Model.Description</p>
+    </div>
+</div>

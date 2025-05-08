@@ -1,0 +1,67 @@
+﻿@model Proje.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="hero-section">
+    <h1 class="">Film <span>&</span> kitap öneri sitesi</h1>
+    <p>En iyi film ve kitap önerilerini keşfet! Okurların ve izleyicilerin favorilerini incele,<br class="hero-section-br"> kendi önerilerini
+        paylaş ve unutulmaz hikayelerin dünyasına dal!</p>
+    <div class="hero-btns">
+        <a class="hero-btn" asp-action="Create" asp-controller="Book">Kitap önerisi yap</a>
+        <a class="hero-btn" asp-action="Create" asp-controller="Movie">Film önerisi yap</a>
+    </div>
+</section>
+
+<!-- Son Eklenenler Section -->
+<section class="recently-added-section">
+    <!-- Kitaplar -->
+    <h2 class="recently-added-header">Son Eklenen Kitaplar</h2>
+    <div class="recently-added-grid">
+        @foreach (var book in Model.RecentBooks)
+        {
+            <a asp-action="Details" asp-controller="Book" asp-route-id="@book.Id" class="recently-added-card">
+                <div class="recently-added-card-col1">
+                    <div class="recently-added-card-header">
+                        <div class="recenty-added-card-header-1">
+                            <img class="recently-added-icon" src="~/images/book-solid.svg" alt="Kitap İkonu">
+                            <h3 class="recently-added-card-title">@book.Title</h3>
+                        </div>
+                    </div>
+                    <img class="recently-added-img" src="@book.ImagePath" alt="@book.Title">
+                </div>
+                <p class="recently-added-text">@book.Description</p>
+            </a>
+        }
+    </div>
+
+    <!-- Filmler -->
+    <h2 class="recently-added-header">Son Eklenen Filmler</h2>
+    <div class="recently-added-grid">
+        @foreach (var movie in Model.RecentMovies)
+        {
+            <a asp-action="Details" asp-controller="Movie" asp-route-id="@movie.Id" class="recently-added-card">
+                <div class="recently-added-card-col1">
+                    <div class="recently-added-card-header">
+                        <div class="recenty-added-card-header-1">
+                            <img class="recently-added-icon" src="~/images/film-solid.svg" alt="Film İkonu">
+                            <h3 class="recently-added-card-title">@movie.Title</h3>
+                        </div>
+                    </div>
+                    <img class="recently-added-img" src="@movie.ImagePath" alt="@movie.Title">
+                </div>
+                <p class="recently-added-text">@movie.Description</p>
+            </a>
+        }
+    </div>
+
+    <!-- Kayıt Olmaya Teşvik Bölümü -->
+</section>
+
+<section class="signup-section">
+    <h2 class="signup-header">Hala Kayıt Olmadın mı?</h2>
+    <p class="signup-text">Kitap ve film önerilerini keşfetmek, kendi önerilerini paylaşmak ve topluluğumuza katılmak
+        için hemen kayıt ol!</p>
+    <a asp-action="Signup" asp-controller="User" class="signup-btn">Kayıt Ol</a>
+</section>

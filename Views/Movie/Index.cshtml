@@ -1,0 +1,75 @@
+@model List<Proje.Models.Movie>
+
+<div class="books-head-container">
+    <div class="books-head-1">
+        <h2>Film Listesi</h2>
+        <p>Buradan tüm filmleri görüntüleyebilir, yeni filmler ekleyebilirsiniz.<br class="books-page-br"> En sevdiğiniz
+        filmleri paylaşın ve keşfedin!</p>
+        <a class="nav-btn-primary" asp-action="Create" asp-controller="Movie">Film ekle</a>
+    </div>
+    <div class="books-head-2">
+        <img class="books-head-img-background" src="@Url.Content("~/images/movies-page-img.jpg")" alt="">
+    </div>
+</div>
+
+@if (Model.Count == 0)
+{
+    <p>Henüz kitap eklenmemiş.</p>
+}
+else
+{
+    <!-- Son Eklenenler Section -->
+    <section class="recently-added-section">
+    <!-- Kitaplar -->
+    <div class="recently-added-grid-2">
+        @foreach (var movie in Model)
+        {
+            <a asp-action="Details" asp-controller="Movie" asp-route-id="@movie.Id" class="recently-added-card">
+                <div class="recently-added-card-col1">
+                    <div class="recently-added-card-header">
+                        <div class="recenty-added-card-header-1">
+                            <img class="recently-added-icon" src="~/images/film-solid.svg" alt="Kitap İkonu">
+                            <h3 class="recently-added-card-title">@movie.Title</h3>
+                        </div>
+                        @if (Context.Session.GetString("UserRole") == "Admin")
+                        {
+                            <form asp-action="Delete" asp-controller="Movie" method="post"
+                                onsubmit="return confirm('Bu filmi silmek istediğinize emin misiniz?');">
+                                <input type="hidden" name="id" value="@movie.Id" />
+                                <button type="submit" class="delete-btn">Kaldır</button>
+                            </form>
+                        }
+                    </div>
+                    <img class="recently-added-img" src="@movie.ImagePath" alt="@movie.Title">
+                </div>
+                <p class="recently-added-text">
+                    @if (movie.Description.Length > 200)
+                    {
+                        @movie.Description.Substring(0, 200)
+                        <span>...</span>
+                    }
+                    else
+                    {
+                        @movie.Description
+                    }
+                </p>
+            </a>
+        }
+    </div>
+    </section>
+
+    <!-- Sayfalama Butonları -->
+    <div class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)" class="pagination-btn">Önceki</a>
+        }
+
+        <span>Sayfa @ViewBag.CurrentPage / @ViewBag.TotalPages</span>
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)" class="pagination-btn">Sonraki</a>
+        }
+    </div>
+}

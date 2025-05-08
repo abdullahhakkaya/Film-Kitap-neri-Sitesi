@@ -1,0 +1,18 @@
+@model Proje.Models.User
+
+@{
+    ViewData["Title"] = "Kayıt Ol Sayfası";
+}
+
+<section class="log-in-section">
+    <div class="login">  	
+        <img class="default-user-img" src="@Url.Content("~/images/user.png")" alt="">
+        <h3 class="login-header">Kayıt ol</h3>
+        <form asp-action="Signup" method="post">
+            <input class="input-box" asp-for="Email" type="email" placeholder="E-mail" required="">
+            <input class="input-box" asp-for="Password" type="password" placeholder="Şifre" required="">
+            <button class="login-btn">Kayıt ol</button>
+        </form>
+	</div>
+</section>
+

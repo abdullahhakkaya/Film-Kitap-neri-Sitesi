@@ -1,0 +1,46 @@
+@model Proje.Models.BookViewModel
+
+<div class="create-book-container">
+    <h2 class="create-book-title">Kitap Ekle</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <!-- Hata mesajlarını göster -->
+    <div asp-validation-summary="All" class="validation-summary"></div>
+
+    <form asp-action="Create" asp-controller="Book" method="post" enctype="multipart/form-data" class="create-book-form">
+        <div class="form-group">
+            <label asp-for="Title" class="form-label">Kitap adı</label>
+            <input asp-for="Title" class="form-input" required />
+            <span asp-validation-for="Title" class="validation-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="form-label">Yorum Metni</label>
+            <textarea asp-for="Description" class="form-textarea" required></textarea>
+            <span asp-validation-for="Description" class="validation-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CoverPhoto" class="form-label">Kapak Resmi Seç</label>
+            <div class="file-upload-container">
+                <input asp-for="CoverPhoto" type="file" class="file-input" id="bookFileInput" required />
+                <label for="bookFileInput" class="file-upload-button">Dosya Seç...</label>
+                <span class="file-upload-text">Dosya seçilmedi</span>
+            </div>
+            <span asp-validation-for="CoverPhoto" class="validation-message"></span>
+        </div>
+
+        <button type="submit" class="submit-button">Kitabı Ekle</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('bookFileInput').addEventListener('change', function () {
+        var fileName = this.files[0] ? this.files[0].name : "Dosya seçilmedi";
+        document.querySelector('.file-upload-text').textContent = fileName;
+    });
+</script>

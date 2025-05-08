@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Proje</title>
+    <script type="importmap"></script>
+    <!-- <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Proje.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/queries.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <img class="navbar-img" src="@Url.Content("~/images/movie.png")" alt="">
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-items" id="navItems">
+                <ul>
+                    <li><a class="nav-btn-secondary" asp-action="Index" asp-controller="Home">Ana sayfa</a></li>
+                    <li><a class="nav-btn-secondary" asp-action="Index" asp-controller="Book">Kitap önerisi</a></li>
+                    <li><a class="nav-btn-secondary" asp-action="Index" asp-controller="Movie">Film önerisi</a></li>
+                    @* Admin kontrolü ekliyoruz *@
+                    @if (Context.Session.GetString("UserRole") == "Admin") // Admin kontrolü burada yapılır
+                    {
+                        <li><a asp-action="ManageUsers" asp-controller="Admin" class="nav-btn-secondary">Sayfayı Yönet</a>
+                        </li>
+                    }
+                </ul>
+                <div class="nav-loging mobile-nav-loging">
+                @if (Context.Session.GetString("UserEmail") == null)
+                {
+                    <a asp-action="Signup" asp-controller="User" class="nav-btn-primary-outline">Kayıt ol</a>
+                    <a asp-action="Login" asp-controller="User" class="nav-btn-primary">Giriş yap</a>
+                }
+                else
+                {
+                    <a asp-action="Logout" asp-controller="User" class="nav-btn-primary">Çıkış yap</a>
+                }
+            </div>
+            </div>
+            <div class="nav-loging desktop-nav-loging">
+                
+                    @if (Context.Session.GetString("UserEmail") == null)
+                    {
+                        <li><a asp-action="Signup" asp-controller="User" class="nav-btn-primary-outline">Kayıt ol</a></li>
+                        <li><a asp-action="Login" asp-controller="User" class="nav-btn-primary">Giriş yap</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-action="Logout" asp-controller="User" class="nav-btn-primary">Çıkış yap</a></li>
+                    }
+                
+            </div>
+
+        </nav>
+    </header>
+    <div class="main-container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    <script>
+        function toggleMenu() {
+            const navItems = document.getElementById('navItems');
+            navItems.classList.toggle('active');
+        }
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
